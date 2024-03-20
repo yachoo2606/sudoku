@@ -1,3 +1,6 @@
 .venv
 .idea
 .idea/*
+build
+dist
+main.spec

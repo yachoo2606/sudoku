@@ -22,10 +22,13 @@ class SudokuGUI:
                                     relief='ridge')
                 else:
                     cell = tk.Entry(self.master, font=('Arial', 18, 'bold'), justify='center')
-                cell.grid(row=i, column=j, sticky="nsew")
+
+                # Determine if the cell is on the right or bottom edge of a 3x3 block
+                padx = 10 if j == 2 or j == 5 else 0  # Add extra padding after the 3rd and 6th column
+                pady = 10 if i == 2 or i == 5 else 0  # Add extra padding after the 3rd and 6th row
+                cell.grid(row=i, column=j, sticky="nsew", padx=(0, padx), pady=(0, pady))
                 row.append(cell)
             self.cells.append(row)
-        # TODO add padding for each 3x3 matrix
         for i in range(9):
             self.master.grid_rowconfigure(i, weight=1)
 
@@ -119,11 +122,13 @@ class SudokuGUI:
                     return False
         return True
 
+
 def main():
     root = tk.Tk()
     sudoku = generate_sudoku()  # generate initial Sudoku puzzle
     SudokuGUI(root, sudoku)
     root.mainloop()
+
 
 if __name__ == "__main__":
     main()
